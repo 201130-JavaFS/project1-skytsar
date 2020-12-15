@@ -93,7 +93,7 @@ public class User {
 		
 	}
 	
-	String encrypt(String password) {
+	public String encrypt(String password) {
 		String letters="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuffer result= new StringBuffer();
 		char[] passwordChars=password.toCharArray();
@@ -111,7 +111,7 @@ public class User {
 		return result.toString();
 		
 	}
-	String decrypt(String rawPassword) {
+	public String decrypt(String rawPassword) {
 		String letters="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuffer result= new StringBuffer();
 		char[] passwordChars=password.toCharArray();
