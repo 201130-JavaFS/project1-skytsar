@@ -61,6 +61,36 @@ public class ErsDaoImpl implements ErsDAO{
 		return user;
 	}
 	
+	public void addRequest(Request req) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		String sql ="INSERT into MoneyBack.ers_requests (reimb_id, reimb_ammount, submitted, resolved, description, author, resolver, status_id, type_id )"
+				+ "  VALUES (default, ?, ?, null, ?, ?, null, ?, ?)";
+		
+		try {
+			connection=PostgresSqlConnection.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDouble(1, req.ammount);
+			preparedStatement.setTime(2, req.getSubmitTime());
+			preparedStatement.setString(3, req.description);
+			preparedStatement.setInt(4, req.authorID);
+			preparedStatement.setInt(5, req.statusID);
+			preparedStatement.setInt(6, req.typeID);
+			preparedStatement.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
+			//log.error("ClassNotFound Error");
+			//log.trace(e);
+		}
+	}
+	public void updateRequest(Request req) {
+		
+		
+	}
 	public List<Request> getRequests(){
 		String sql="SELECT * from MoneyBack.ers_requests";
 		Connection connection=null;
