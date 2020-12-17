@@ -26,6 +26,7 @@ public class Request {
 		this.statusID = statusID;
 		this.typeID = typeID;
 	}
+	
 
 	
 

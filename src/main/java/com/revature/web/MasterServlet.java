@@ -23,7 +23,7 @@ public class MasterServlet extends HttpServlet {
 		// will override for success requests.
 		res.setStatus(404);
 
-		final String URI = req.getRequestURI().replace("/AvengersDemo/", "");
+		final String URI = req.getRequestURI().replace("/project1-skytsar/", "");
 
 		switch (URI) {
 		case "avengers":

@@ -1,5 +1,5 @@
 package com.revature.models;
-
+import com.revature.models.Request;
 public class User {
 	public int id;
 	public String username;
@@ -9,6 +9,9 @@ public class User {
 	public String email;
 	public int role;
 	
+	/*Request newRequest(double ammount, String description,int typeID) {
+		return Request(null,ammount,);
+	}*/
 	
 	public int getId() {
 		return id;

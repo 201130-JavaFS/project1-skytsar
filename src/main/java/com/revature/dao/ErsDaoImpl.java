@@ -33,8 +33,13 @@ public class ErsDaoImpl implements ErsDAO{
 			rs = preparedStatement.executeQuery();
 			
 			if(rs.next()) {
-				user = new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"),
-						rs.getString("firstname"),rs.getString("lastname"),rs.getString("email"),rs.getInt("role_id"));
+				user = new User(rs.getInt("id"),
+						rs.getString("username"),
+						rs.getString("password"),
+						rs.getString("firstname"),
+						rs.getString("lastname"),
+						rs.getString("email"),
+						rs.getInt("role_id"));
 				//log.trace("User retrieved");
 				user.setPassword(user.decrypt(user.getPassword()));
 			}
@@ -65,17 +70,17 @@ public class ErsDaoImpl implements ErsDAO{
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
 		String sql ="INSERT into MoneyBack.ers_requests (reimb_id, reimb_ammount, submitted, resolved, description, author, resolver, status_id, type_id )"
-				+ "  VALUES (default, ?, ?, null, ?, ?, null, ?, ?)";
+				+ "  VALUES (default, ?, current_timestamp, null, ?, ?, null, ?, ?)";
 		
 		try {
 			connection=PostgresSqlConnection.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setDouble(1, req.ammount);
-			preparedStatement.setTime(2, req.getSubmitTime());
-			preparedStatement.setString(3, req.description);
-			preparedStatement.setInt(4, req.authorID);
-			preparedStatement.setInt(5, req.statusID);
-			preparedStatement.setInt(6, req.typeID);
+			//preparedStatement.setTime(2, current_timestamp);
+			preparedStatement.setString(2, req.description);
+			preparedStatement.setInt(3, req.authorID);
+			preparedStatement.setInt(4, req.statusID);
+			preparedStatement.setInt(5, req.typeID);
 			preparedStatement.execute();
 			
 		} catch (SQLException e) {
@@ -86,9 +91,43 @@ public class ErsDaoImpl implements ErsDAO{
 			//log.error("ClassNotFound Error");
 			//log.trace(e);
 		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
 	}
 	public void updateRequest(Request req) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		String sql = "UPDATE MoneyBack.ers_requests SET resolved=current_timestamp, resolver=?,status_id=? WHERE reimb_id=?";
 		
+		try {
+			connection=PostgresSqlConnection.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			//preparedStatement.setTime(1, req.resolveTime);
+			preparedStatement.setInt(1, req.resolverID);
+			preparedStatement.setInt(2, req.statusID);
+			preparedStatement.setInt(3, req.id);
+			preparedStatement.execute();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
 		
 	}
 	public List<Request> getRequests(){
@@ -105,8 +144,15 @@ public class ErsDaoImpl implements ErsDAO{
 			rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				request = new Request(rs.getInt("reimb_id"),rs.getDouble("reimb_ammount"),rs.getTime("submitted"),
-						rs.getTime("resolved"),rs.getString("description"),rs.getInt("author"),rs.getInt("resolver"),rs.getInt("status_id"),rs.getInt("type_id"));
+				request = new Request(rs.getInt("reimb_id"),
+						rs.getDouble("reimb_ammount"),
+						rs.getTime("submitted"),
+						rs.getTime("resolved"),
+						rs.getString("description"),
+						rs.getInt("author"),
+						rs.getInt("resolver"),
+						rs.getInt("status_id"),
+						rs.getInt("type_id"));
 				//log.trace("User retrieved");
 				output.add(request);
 			}
@@ -115,7 +161,100 @@ public class ErsDaoImpl implements ErsDAO{
 		catch(SQLException e){
 			System.out.println(e);
 		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
 		
+		
+		return output;
+	}
+	public List<Request> getUsersRequests(int userid){
+		String sql="SELECT * from MoneyBack.ers_requests WHERE author="+userid;
+		Connection connection=null;
+		Request request=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet rs=null;
+		List<Request> output= new ArrayList();
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			
+			//Step 4 - Execute Query
+			rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				request = new Request(rs.getInt("reimb_id"),
+						rs.getDouble("reimb_ammount"),
+						rs.getTime("submitted"),
+						rs.getTime("resolved"),
+						rs.getString("description"),
+						rs.getInt("author"),
+						rs.getInt("resolver"),
+						rs.getInt("status_id"),
+						rs.getInt("type_id"));
+				//log.trace("User retrieved");
+				output.add(request);
+			}
+			
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
+		
+		
+		return output;
+	}
+	public List<Request> getFilteredRequests(int statusid){
+		String sql="SELECT * from MoneyBack.ers_requests WHERE status="+statusid;
+		Connection connection=null;
+		Request request=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet rs=null;
+		List<Request> output= new ArrayList();
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			
+			//Step 4 - Execute Query
+			rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				request = new Request(rs.getInt("reimb_id"),
+						rs.getDouble("reimb_ammount"),
+						rs.getTime("submitted"),
+						rs.getTime("resolved"),
+						rs.getString("description"),
+						rs.getInt("author"),
+						rs.getInt("resolver"),
+						rs.getInt("status_id"),
+						rs.getInt("type_id"));
+				//log.trace("User retrieved");
+				output.add(request);
+			}
+			
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
 		
 		
 		return output;
