@@ -15,23 +15,25 @@ import com.revature.sql.*;
 public class ErsDaoImpl implements ErsDAO{
 	
 	public User login(String username, String password) {
-		Connection connection=null;
-		User user=null;
+		System.out.println("login method reached");
+		//Connection connection=null;
+		User user=new User();
 		PreparedStatement preparedStatement=null;
 		ResultSet rs=null;
 		String sql;
-		try {
+		try (Connection connection=PostgresSqlConnection.getConnection()){
 			
-			connection=PostgresSqlConnection.getConnection();
 			
-			sql="SELECT * from MoneyBack.user where username=? and password=?";
+			
+			sql="SELECT * from moneyback.user where username=? and password=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, username);
 			password=user.encrypt(password);
 			preparedStatement.setString(2, password);
 			//Step 4 - Execute Query
 			rs = preparedStatement.executeQuery();
-			
+			System.out.println(username);
+			System.out.println(password);
 			if(rs.next()) {
 				user = new User(rs.getInt("id"),
 						rs.getString("username"),
@@ -43,27 +45,22 @@ public class ErsDaoImpl implements ErsDAO{
 				//log.trace("User retrieved");
 				user.setPassword(user.decrypt(user.getPassword()));
 			}
-			else
+			else {
 			//log.trace("Invalid user name or password");
-			System.out.println("Invalid");
+			user=null;
+			System.out.println("Invalid came back empty");
+			}
 		} catch (ClassNotFoundException e) {
 			//log.error("ClassNotFound Error");
 			//log.trace(e);
+			System.out.println(e);
 		} catch (SQLException e) {
 			//log.error("SQL Error");
 			//log.trace(e);
+			System.out.println(e);
+			return null;
 		}
-		finally {
-			try {
-			
-			connection.close();
-			} catch (SQLException e) {
-				//log.error(e);
-				System.out.println(e);
-				
-			}
-		}
-		return user;
+				return user;
 	}
 	
 	public void addRequest(Request req) {
@@ -79,8 +76,42 @@ public class ErsDaoImpl implements ErsDAO{
 			//preparedStatement.setTime(2, current_timestamp);
 			preparedStatement.setString(2, req.description);
 			preparedStatement.setInt(3, req.authorID);
-			preparedStatement.setInt(4, req.statusID);
+			preparedStatement.setInt(4,1);
 			preparedStatement.setInt(5, req.typeID);
+			preparedStatement.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
+			//log.error("ClassNotFound Error");
+			//log.trace(e);
+		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
+	}
+	public void addRequest(double ammount, String description,int authorID, int typeID) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		String sql ="INSERT into MoneyBack.ers_requests (reimb_id, reimb_ammount, submitted, resolved, description, author, resolver, status_id, type_id )"
+				+ "  VALUES (default, ?, current_timestamp, null, ?, ?, null, ?, ?)";
+		
+		try {
+			connection=PostgresSqlConnection.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDouble(1, ammount);
+			//preparedStatement.setTime(2, current_timestamp);
+			preparedStatement.setString(2, description);
+			preparedStatement.setInt(3, authorID);
+			preparedStatement.setInt(4,1);
+			preparedStatement.setInt(5, typeID);
 			preparedStatement.execute();
 			
 		} catch (SQLException e) {
@@ -173,6 +204,8 @@ public class ErsDaoImpl implements ErsDAO{
 		
 		return output;
 	}
+	
+	
 	public List<Request> getUsersRequests(int userid){
 		String sql="SELECT * from MoneyBack.ers_requests WHERE author="+userid;
 		Connection connection=null;

@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.revature.controllers.AvengersController;
+//import com.revature.controllers.AvengersController;
 import com.revature.controllers.LoginController;
 
 public class MasterServlet extends HttpServlet {
 
-	private AvengersController ac = new AvengersController();
-	//private LoginController lc = new LoginController();
+	//private AvengersController ac = new AvengersController();
+	private LoginController lc = new LoginController();
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("application/json");
@@ -23,16 +23,11 @@ public class MasterServlet extends HttpServlet {
 		// will override for success requests.
 		res.setStatus(404);
 
-		final String URI = req.getRequestURI().replace("/project1-skytsar/", "");
+		
+		final String URI = req.getRequestURI().replace("/project-1/", "");
 
 		switch (URI) {
-		case "avengers":
-			if (req.getSession(false) != null) {
-				ac.getAllAvengers(res);
-			} else {
-				res.setStatus(403);
-			}
-			break;
+		
 		case "login":
 			lc.login(req, res);
 		}

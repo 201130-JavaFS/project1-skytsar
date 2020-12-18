@@ -9,9 +9,9 @@ public class User {
 	public String email;
 	public int role;
 	
-	/*Request newRequest(double ammount, String description,int typeID) {
-		return Request(null,ammount,);
-	}*/
+	Request newRequest(double ammount, String description,int typeID) {
+		return new Request(null,ammount,null,null,description,this.id, null,1,typeID);
+	}
 	
 	public int getId() {
 		return id;
@@ -95,6 +95,16 @@ public class User {
 		
 		
 	}
+	public User() {
+		super();
+		this.id=0;
+		this.username="";
+		this.password="";
+		this.firstName="";
+		this.lastName="";
+		this.email="";
+		this.role=0;
+	}
 	
 	public String encrypt(String password) {
 		String letters="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -103,10 +113,12 @@ public class User {
 		for(char letter: passwordChars) {
 			char uppered=Character.toUpperCase(letter);
 			int location=letters.indexOf(uppered);
-			location=location+5;
+			location=location+4;
 			char newletter=letters.charAt(location);
+			
 			if(Character.isLowerCase(letter)) {
-				Character.toLowerCase(newletter);
+				
+				newletter= Character.toLowerCase(newletter);
 			}
 			result.append(newletter);
 		}
@@ -121,10 +133,10 @@ public class User {
 		for(char letter: passwordChars) {
 			char lowered=Character.toUpperCase(letter);
 			int location=letters.lastIndexOf(lowered);
-			location=location-5;
+			location=location-4;
 			char newletter=letters.charAt(location);
 			if(Character.isLowerCase(letter)) {
-				Character.toLowerCase(newletter);
+				newletter=Character.toLowerCase(newletter);
 			}
 			result.append(newletter);
 		}

@@ -5,13 +5,16 @@ package com.revature.controllers;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import javax.management.relation.RelationService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginDTO;
-import com.revature.services.LoginService;
+import com.revature.models.User;
+import com.revature.services.*;
+
 
 public class LoginController {
 	
@@ -32,7 +35,7 @@ public class LoginController {
 			}
 			
 			String body = new String(sb);
-			
+			System.out.println("logincontroller reached");
 			LoginDTO lDTO = om.readValue(body, LoginDTO.class);
 			
 			if(ls.login(lDTO.username, lDTO.password)) {

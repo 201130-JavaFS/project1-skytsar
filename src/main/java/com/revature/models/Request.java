@@ -30,6 +30,24 @@ public class Request {
 
 	
 
+	public Request(Object object, double ammount2, Object submitTime2, Object resolveTime2, String description2,
+			int id2, Object object2, int statusID2, int typeID2) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.id = -1;
+		this.ammount = ammount;
+		this.submitTime = submitTime;
+		this.resolveTime = resolveTime;
+		this.description = description;
+		this.authorID = authorID;
+		this.resolverID = resolverID;
+		this.statusID = statusID;
+		this.typeID = typeID;
+	}
+
+
+
+
 	public int getId() {
 		return id;
 	}
