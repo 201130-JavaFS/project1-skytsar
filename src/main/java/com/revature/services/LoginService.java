@@ -20,6 +20,9 @@ public class LoginService {
 		return false;
 	}
 	
-	
+	public User getUser(String username, String password) {
+		return user= eDao.login(username, password);
+		
+	}
 
 }

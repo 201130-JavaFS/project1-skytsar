@@ -1,13 +1,13 @@
 package com.revature.models;
 import com.revature.models.Request;
 public class User {
-	public int id;
-	public String username;
+	private int id;
+	private String username;
 	private String password;
-	public String firstName;
-	public String lastName;
-	public String email;
-	public int role;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private int role;
 	
 	Request newRequest(double ammount, String description,int typeID) {
 		return new Request(null,ammount,null,null,description,this.id, null,1,typeID);

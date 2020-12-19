@@ -30,7 +30,10 @@ public class MasterServlet extends HttpServlet {
 		
 		case "login":
 			lc.login(req, res);
+		case "getUser":
+			l
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

@@ -13,6 +13,7 @@ public class Request {
 	public int statusID;
 	public int typeID;
 	
+	
 	public Request(int id, double ammount, Time submitTime, Time resolveTime, String description,
 			int authorID, int resolverID, int statusID, int typeID) {
 		super();
@@ -26,24 +27,22 @@ public class Request {
 		this.statusID = statusID;
 		this.typeID = typeID;
 	}
-	
-
-	
-
-	public Request(Object object, double ammount2, Object submitTime2, Object resolveTime2, String description2,
-			int id2, Object object2, int statusID2, int typeID2) {
-		// TODO Auto-generated constructor stub
+	public Request(double ammount,  String description,
+			int authorID, int typeID) {
 		super();
-		this.id = -1;
+		this.id = 0;
 		this.ammount = ammount;
-		this.submitTime = submitTime;
-		this.resolveTime = resolveTime;
+		this.submitTime = null;
+		this.resolveTime = null;
 		this.description = description;
 		this.authorID = authorID;
-		this.resolverID = resolverID;
-		this.statusID = statusID;
+		this.resolverID = 0;
+		this.statusID = 0;
 		this.typeID = typeID;
 	}
+	
+
+	
 
 
 

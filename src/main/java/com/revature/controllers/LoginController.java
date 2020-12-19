@@ -41,7 +41,9 @@ public class LoginController {
 			if(ls.login(lDTO.username, lDTO.password)) {
 				HttpSession ses = req.getSession();
 				
-				ses.setAttribute("user", lDTO);
+				
+				ses.setAttribute("user",ls.getUser(lDTO.username, lDTO.password));
+				
 				ses.setAttribute("loggedin", true);
 				
 				res.setStatus(200);
@@ -79,4 +81,6 @@ public class LoginController {
 			}
 		}
 	}
+
+	
 }
