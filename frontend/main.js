@@ -30,3 +30,30 @@ async function loginFunc() {
   }
 
 }
+function maketable(){
+	  let row = document.createElement("tr");
+      let cell = document.createElement("th");
+      cell.innerHTML = "Request ID";
+      row.appendChild(cell);
+      let cell2 = document.createElement("th");
+      cell2.innerHTML = "Ammount";
+      row.appendChild(cell2);
+      let cell3 = document.createElement("th");
+      cell3.innerHTML = "Time submitted";
+      row.appendChild(cell3);
+      let cell4 = document.createElement("th");
+      cell4.innerHTML = "Time resolved";
+      row.appendChild(cell4);
+      let cell5 = document.createElement("th");
+      cell5.innerHTML = "Requester ID";
+      row.appendChild(cell5);
+      let cell6 = document.createElement("th");
+      cell6.innerHTML = "Status";
+      row.appendChild(cell6);
+      let cell7 = document.createElement("th");
+      cell7.innerHTML = "Type";
+      row.appendChild(cell7);
+
+	  document.getElementById("avbody").appendChild(row);
+
+}
