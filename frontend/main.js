@@ -3,7 +3,7 @@ const url = 'http://localhost:8080/project-1/';
 
 
 document.getElementById("loginbtn").addEventListener('click', loginFunc);
-
+document.getElementById("requestAdd").addEventListener('click', showreqform);
 
 async function loginFunc() {
   
@@ -60,40 +60,13 @@ function makeTable(){
 	  document.getElementById("request table").appendChild(row);
 
 }
-
-function fillTable(){
-
-
-
-
+function showreqform(){
+	document.getElementById("myDIV").style.display = "block";
 }
 
-function getuser(){
-	let usern = document.getElementById("username").value;
-  let userp = document.getElementById("password").value;
-  
 
-  let user = {
-    username:usern,
-    password:userp
-    
-  };
-
-  let resp = await fetch(url+'login', {
-    method:"POST",
-    body: JSON.stringify(user),
-    credentials: 'include'
-    //Credentials:include will ensure that they cookie is captured, future fetch requests
-    //will also require this value in order to send the cookie back. 
-  });
-
-  if(resp.status===200){
-    document.getElementById('login-row').innerText="YOU HAVE LOGGED IN";  
-    
-  }else{
-    document.getElementById('login-row').innerText="Login failed! Reload the page of the computer will explode!"; 
-  }
-
-
+function addRequest(){
+	
+	
 }
 

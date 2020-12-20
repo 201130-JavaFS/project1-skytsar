@@ -21,14 +21,20 @@
       </div>
       
       
-      <div  id="requesttemplate">
+      
+      <div  id="useroptions" style="display:none">
+      	<button id="requestAdd" >Submit new Request</button>
+      	<button id="requestList" >Observe requests</button>
+      </div>
+      
+      <div  id="requesttemplate" style="display:none">
         <h3 class="col-lg-12">Please enter your request:</h3>
         <input class="col-sm-4 form-control" id="ammount" type="text" placeholder="Cash ammount">
         <input class="col-sm-4 form-control" max=250 id="description" type="text" placeholder="Description">
-        <select name = "dropdown">
+        <select name = "dropdown" id="typeID">
             <option value = "1" selected>Computer Architecture</option>
-            <option value = "Java">Java</option>
-            <option value = "Discrete Mathematics">Discrete Mathematics</option>
+            <option value = "2">Java</option>
+            <option value = "3">Discrete Mathematics</option>
          </select>
         <button id="submitRequest" >Submit</button>
       </div>

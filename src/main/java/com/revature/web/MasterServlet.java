@@ -7,15 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 //import com.revature.controllers.AvengersController;
 import com.revature.controllers.LoginController;
+import com.revature.controllers.RequestController;
+
 
 public class MasterServlet extends HttpServlet {
 
 	//private AvengersController ac = new AvengersController();
 	private LoginController lc = new LoginController();
+	private RequestController rc = new RequestController();
+	private static Logger log = LogManager.getRootLogger();
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
 		res.setContentType("application/json");
 		// By default tomcat will send back a successful status code if it finds a
 		// servlet method.
@@ -29,10 +37,20 @@ public class MasterServlet extends HttpServlet {
 		switch (URI) {
 		
 		case "login":
+			log.info("logging in");
 			lc.login(req, res);
-		case "getUser":
-			l
+			break;
+		case "addRequest":
+			rc.addRequest(req, res);
+			break;
+		case "changeRequest":
+			break;
+		case "getRequests":
+			break;
 		}
+		
+			
+		
 		
 	}
 

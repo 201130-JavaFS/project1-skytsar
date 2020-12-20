@@ -10,7 +10,7 @@ public class User {
 	private int role;
 	
 	Request newRequest(double ammount, String description,int typeID) {
-		return new Request(null,ammount,null,null,description,this.id, null,1,typeID);
+		return new Request(ammount,description,this.id,typeID);
 	}
 	
 	public int getId() {
@@ -122,7 +122,6 @@ public class User {
 			}
 			result.append(newletter);
 		}
-		
 		return result.toString();
 		
 	}

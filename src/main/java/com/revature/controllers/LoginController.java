@@ -35,7 +35,7 @@ public class LoginController {
 			}
 			
 			String body = new String(sb);
-			System.out.println("logincontroller reached");
+			
 			LoginDTO lDTO = om.readValue(body, LoginDTO.class);
 			
 			if(ls.login(lDTO.username, lDTO.password)) {
