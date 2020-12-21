@@ -3,15 +3,15 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Request {
-	public int id;
-	public double ammount;
-	public Time submitTime;
-	public Time resolveTime;
-	public String description;
-	public int authorID;
-	public int resolverID;
-	public int statusID;
-	public int typeID;
+	private int id;
+	private double ammount;
+	private Time submitTime;
+	private Time resolveTime;
+	private String description;
+	private int authorID;
+	private int resolverID;
+	private int statusID;
+	private int typeID;
 	
 	
 	public Request(int id, double ammount, Time submitTime, Time resolveTime, String description,

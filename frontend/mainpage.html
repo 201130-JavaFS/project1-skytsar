@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+		table, th, td {
+ 		 border: 1px solid red ;
+ 		 
+		}
+		
+	</style>
     <title>Employee Reimbursement System</title>
     <link
       rel="stylesheet"
@@ -10,6 +17,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+   
   </head>
   <body>
     <div class="container" id="fullcontainer">
@@ -29,12 +37,13 @@
       
       <div  id="requesttemplate" style="display:none">
         <h3 class="col-lg-12">Please enter your request:</h3>
-        <input class="col-sm-4 form-control" id="ammount" type="text" placeholder="Cash ammount">
+        <input class="col-sm-4 form-control" id="amount" type="text" placeholder="Cash amount">
         <input class="col-sm-4 form-control" max=250 id="description" type="text" placeholder="Description">
         <select name = "dropdown" id="typeID">
-            <option value = "1" selected>Computer Architecture</option>
-            <option value = "2">Java</option>
-            <option value = "3">Discrete Mathematics</option>
+            <option value = "1" selected>LODGING</option>
+            <option value = "2">TRAVEL</option>
+            <option value = "3">FOOD</option>
+            <option value = "4">OTHER</option>
          </select>
         <button id="submitRequest" >Submit</button>
       </div>
@@ -43,9 +52,24 @@
       
       <br />
       <br />
-      <table>
-	  <tbody id="request table"></tbody>
+      <table width:100%;>
+	  <tbody id="request table" style="display:block; border:black">
+	  		<tr>
+	  			<th>id</th>
+	  			<th>Amount</th>
+	  			<th>time submitted</th>
+	  			<th>time resolved</th>
+	  			<th>Requester ID</th>
+	  			<th>Resolver ID</th>
+	  			<th>Type</th>
+	  			<th>Status</th>
+	  		</tr>
+	  		
+	  </tbody>
 	  </table>
+	  
+	  
+	  
     </div>
     <script src="main.js"></script>
   </body>

@@ -72,12 +72,12 @@ public class ErsDaoImpl implements ErsDAO{
 		try {
 			connection=PostgresSqlConnection.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setDouble(1, req.ammount);
+			preparedStatement.setDouble(1, req.getAmmount());
 			//preparedStatement.setTime(2, current_timestamp);
-			preparedStatement.setString(2, req.description);
-			preparedStatement.setInt(3, req.authorID);
+			preparedStatement.setString(2, req.getDescription());
+			preparedStatement.setInt(3, req.getAuthorID());
 			preparedStatement.setInt(4,1);
-			preparedStatement.setInt(5, req.typeID);
+			preparedStatement.setInt(5, req.getTypeID());
 			preparedStatement.execute();
 			
 		} catch (SQLException e) {
@@ -140,9 +140,39 @@ public class ErsDaoImpl implements ErsDAO{
 			connection=PostgresSqlConnection.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			//preparedStatement.setTime(1, req.resolveTime);
-			preparedStatement.setInt(1, req.resolverID);
-			preparedStatement.setInt(2, req.statusID);
-			preparedStatement.setInt(3, req.id);
+			preparedStatement.setInt(1, req.getResolverID());
+			preparedStatement.setInt(2, req.getStatusID());
+			preparedStatement.setInt(3, req.getId());
+			preparedStatement.execute();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+			
+			connection.close();
+			} catch (SQLException e) {
+				//log.error(e);
+			}
+		}
+		
+	}
+	public void updateRequest(int requestID, int statusID,int resolverID) {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		String sql = "UPDATE MoneyBack.ers_requests SET resolved=current_timestamp, resolver=?,status_id=? WHERE reimb_id=?";
+		
+		try {
+			connection=PostgresSqlConnection.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			//preparedStatement.setTime(1, req.resolveTime);
+			preparedStatement.setInt(1, resolverID);
+			preparedStatement.setInt(2, statusID);
+			preparedStatement.setInt(3, requestID);
 			preparedStatement.execute();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -37,15 +37,19 @@ public class MasterServlet extends HttpServlet {
 		switch (URI) {
 		
 		case "login":
-			log.info("logging in");
+			log.info("Logging in");
 			lc.login(req, res);
 			break;
 		case "addRequest":
+			log.info("Adding request");
 			rc.addRequest(req, res);
 			break;
 		case "changeRequest":
+			
 			break;
 		case "getRequests":
+			log.info("Getting requests");
+			rc.getRequests(req, res);
 			break;
 		}
 		

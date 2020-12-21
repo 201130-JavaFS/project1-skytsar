@@ -16,5 +16,8 @@ public class RequestService {
 	public void addRequest(double ammount, String description,int authorID, int typeID) {
 		eDao.addRequest(ammount, description, authorID, typeID);
 	}
+	public List<Request> getEmployeeRequests(int userID){
+		return eDao.getUsersRequests(userID);
+	}
 	
 }
