@@ -130,7 +130,7 @@ async function changeRequest(){
     credentials: 'include'
   });
 	if(respo.status===200){
-      document.getElementById('request select').innerText="Request submitted"
+      document.getElementById('request select').append("Request submitted");
     
   }else{
   	document.getElementById('request select').innerText="Request failed"
