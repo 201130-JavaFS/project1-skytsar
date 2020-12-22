@@ -19,5 +19,10 @@ public class RequestService {
 	public List<Request> getEmployeeRequests(int userID){
 		return eDao.getUsersRequests(userID);
 	}
+	public void updateRequest(int reqID,int newStat, int resolverID ) {
+		
+		eDao.updateRequest(reqID, newStat, resolverID);
+		
+	}
 	
 }

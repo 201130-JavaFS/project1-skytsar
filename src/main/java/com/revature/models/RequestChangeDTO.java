@@ -8,6 +8,10 @@ public class RequestChangeDTO {
 		this.requestID = requestID;
 		this.statusID = statusID;
 	}
+	public RequestChangeDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 	

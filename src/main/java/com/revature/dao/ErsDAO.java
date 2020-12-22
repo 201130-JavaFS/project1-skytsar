@@ -11,5 +11,6 @@ public interface ErsDAO {
 	public void addRequest(Request req);
 	public void addRequest(double ammount, String description,int authorID, int typeID);
 	public List<Request> getUsersRequests(int userid);
+	public void updateRequest(int requestID, int statusID,int resolverID);
 
 }

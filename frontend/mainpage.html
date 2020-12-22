@@ -58,7 +58,8 @@
       
       <br />
       <br />
-      <table id="request table" style="display:none; width:100%;" >
+        <div id="request select" style="display:none;">
+      <table id="request table"  style="width:100%;" >
 	  <tbody id="table body" style="border:black">
 	  		<tr>
 	  			<th>id</th>
@@ -73,7 +74,16 @@
 	  		 </tbody>
 	  		 <tbody id="table content"></tbody>
 	  </table>
-	  
+	  	
+	  	<input class="col-sm-4 form-control" id="reqIDentry" type="text" placeholder="Enter Request ID">
+	  	<select name = "dropdown" id="select action">
+            <option value = "1" selected></option>
+            <option value = "2">Accept</option>
+            <option value = "3">Reject</option>
+         </select>
+         <button id="change" class="btn btn-danger">Process Request</button>
+	  	
+	   </div>
 	  
 	  
     </div>

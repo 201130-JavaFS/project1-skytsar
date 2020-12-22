@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginDTO;
 import com.revature.models.Request;
+import com.revature.models.RequestChangeDTO;
 import com.revature.models.RequestDTO;
 import com.revature.models.User;
 import com.revature.services.LoginService;
@@ -82,6 +83,50 @@ public class RequestController {
 					res.getWriter().print(json);
 					res.setStatus(200);
 					
+				}
+				else {
+					res.setStatus(401);
+					//e.printStackTrace();
+					ses.invalidate();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				HttpSession ses = req.getSession(false);
+				if (ses != null) {
+					ses.invalidate();
+				}
+				res.setStatus(401);
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	public void updateRequest(HttpServletRequest req, HttpServletResponse res) throws IOException{
+		if(req.getMethod().equals("PUT")) {
+			
+			BufferedReader reader = req.getReader();
+			
+			StringBuilder sb = new StringBuilder();
+			
+			String line = reader.readLine();
+			
+			while(line!=null) {
+				sb.append(line);
+				line=reader.readLine();
+			}
+			String body = new String(sb);
+			RequestChangeDTO ers= om.readValue(body, RequestChangeDTO.class);
+			
+			
+			try {
+				HttpSession ses = req.getSession(false);
+				if(ses!=null) {
+					User user = (User) ses.getAttribute("user");
+					log.info("In request controller");
+					rs.updateRequest(ers.requestID, ers.statusID, user.getId());
+					res.setStatus(200);
+					res.getWriter().print("Push successful");
 				}
 				else {
 					res.setStatus(401);

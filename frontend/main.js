@@ -6,10 +6,12 @@ document.getElementById("loginbtn").addEventListener('click', loginFunc);
 document.getElementById("requestAdd").addEventListener('click', showreqform);
 document.getElementById("submitRequest").addEventListener('click', addRequest);
 document.getElementById("requestList").addEventListener('click', makeTable);
+document.getElementById("change").addEventListener('click', changeRequest);
 
 var loggedUser="";
 var selectedRequest=0;
 var statusFilter=-1;
+var data="";
 
 async function loginFunc() {
   
@@ -44,7 +46,7 @@ async function loginFunc() {
 }
 
 async function makeTable(){
-	document.getElementById("request table").style.display = "block";
+	document.getElementById("request select").style.display = "block";
 	document.getElementById("table content").innerHTML="";
 	statusFilter=document.getElementById("filterID").value;
 	let response = await fetch(url+"getRequests", {credentials: 'include'});
@@ -115,7 +117,26 @@ async function makeTable(){
 function showreqform(){
 	document.getElementById("requesttemplate").style.display = "block";
 }
-
+async function changeRequest(){
+	let reqID=document.getElementById("reqIDentry").value;
+	let statID=document.getElementById("select action").value;
+	let change = {
+    requestID:reqID,
+    statusID:statID
+  };
+	let respo = await fetch(url+'changeRequest', {
+    method:"PUT",
+    body: JSON.stringify(change),
+    credentials: 'include'
+  });
+	if(respo.status===200){
+      document.getElementById('request select').innerText="Request submitted"
+    
+  }else{
+  	document.getElementById('request select').innerText="Request failed"
+    
+  }
+}
 
 async function addRequest(){
 	let amnt = document.getElementById("amount").value;

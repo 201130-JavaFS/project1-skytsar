@@ -45,7 +45,8 @@ public class MasterServlet extends HttpServlet {
 			rc.addRequest(req, res);
 			break;
 		case "changeRequest":
-			
+			log.info("Processing request");
+			rc.updateRequest(req, res);
 			break;
 		case "getRequests":
 			log.info("Getting requests");
@@ -59,6 +60,9 @@ public class MasterServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doGet(req, res);
+	}
+	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}
 

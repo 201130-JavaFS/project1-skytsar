@@ -169,6 +169,7 @@ public class ErsDaoImpl implements ErsDAO{
 	public void updateRequest(int requestID, int statusID,int resolverID) {
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
+		log.info("In updateRequest DAO");
 		String sql = "UPDATE MoneyBack.ers_requests SET resolved=current_timestamp, resolver=?,status_id=? WHERE reimb_id=?";
 		
 		try {
