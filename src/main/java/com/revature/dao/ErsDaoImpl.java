@@ -90,7 +90,7 @@ public class ErsDaoImpl implements ErsDAO{
 			e.printStackTrace();
 		}
 		catch (ClassNotFoundException e) {
-			//log.error("ClassNotFound Error");
+			log.error("ClassNotFound Error");
 			//log.trace(e);
 		}
 		finally {
@@ -236,14 +236,16 @@ public class ErsDaoImpl implements ErsDAO{
 	
 	
 	public List<Request> getUsersRequests(int userid){
-		String sql="SELECT * from MoneyBack.ers_requests WHERE author="+userid;
-		Connection connection=null;
+		String sql="SELECT * from MoneyBack.ers_requests WHERE author=?";
+		
 		Request request=null;
 		PreparedStatement preparedStatement=null;
 		ResultSet rs=null;
 		List<Request> output= new ArrayList();
-		try {
+		try(Connection connection=PostgresSqlConnection.getConnection()) {
+			
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, userid);
 			
 			//Step 4 - Execute Query
 			rs = preparedStatement.executeQuery();
@@ -261,18 +263,14 @@ public class ErsDaoImpl implements ErsDAO{
 				//log.trace("User retrieved");
 				output.add(request);
 			}
-			
+			connection.close();
 		}
 		catch(SQLException e){
 			System.out.println(e);
 		}
-		finally {
-			try {
-			
-			connection.close();
-			} catch (SQLException e) {
-				//log.error(e);
-			}
+		catch (ClassNotFoundException e) {
+			log.error("ClassNotFound Error");
+			//log.trace(e);
 		}
 		
 		
