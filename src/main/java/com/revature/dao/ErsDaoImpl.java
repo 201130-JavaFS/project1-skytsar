@@ -107,6 +107,8 @@ public class ErsDaoImpl implements ErsDAO{
 		PreparedStatement preparedStatement=null;
 		if(ammount<0) {
 			log.error("Negative cash ammount, will not push");
+			throw new IllegalArgumentException("Cannot reinburse negative amount");
+			
 		}
 		else {
 			ammount=this.validMoney(ammount);

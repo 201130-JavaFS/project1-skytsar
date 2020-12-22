@@ -124,6 +124,7 @@ async function changeRequest(){
     requestID:reqID,
     statusID:statID
   };
+  if(statID!=1){
 	let respo = await fetch(url+'changeRequest', {
     method:"PUT",
     body: JSON.stringify(change),
@@ -135,6 +136,7 @@ async function changeRequest(){
   }else{
   	document.getElementById('request select').innerText="Request failed"
     
+  }
   }
 }
 
