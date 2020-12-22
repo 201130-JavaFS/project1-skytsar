@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginDTO;
 import com.revature.models.User;
@@ -20,6 +23,7 @@ public class LoginController {
 	
 	private ObjectMapper om = new ObjectMapper();
 	private LoginService ls = new LoginService();
+	private static Logger log = LogManager.getRootLogger();
 
 	public void login(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		if(req.getMethod().equals("POST")) {
@@ -45,6 +49,8 @@ public class LoginController {
 				ses.setAttribute("user",ls.getUser(lDTO.username, lDTO.password));
 				
 				ses.setAttribute("loggedin", true);
+				String json = om.writeValueAsString(ses.getAttribute("user"));
+				res.getWriter().print(json);
 				
 				res.setStatus(200);
 				res.getWriter().print("Login Successful");

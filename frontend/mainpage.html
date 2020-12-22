@@ -33,6 +33,12 @@
       <div  id="useroptions" style="display:none">
       	<button id="requestAdd" >Submit new Request</button>
       	<button id="requestList" >Observe requests</button>
+      	<select name = "dropdown" id="filterID">
+            <option value = "0" selected></option>
+            <option value = "1">Pending</option>
+            <option value = "2">Accepted</option>
+            <option value = "3">Rejected</option>
+         </select>
       </div>
       
       <div  id="requesttemplate" style="display:none">
@@ -52,8 +58,8 @@
       
       <br />
       <br />
-      <table width:100%;>
-	  <tbody id="request table" style="display:block; border:black">
+      <table id="request table" style="display:none; width:100%;" >
+	  <tbody id="table body" style="border:black">
 	  		<tr>
 	  			<th>id</th>
 	  			<th>Amount</th>
@@ -64,8 +70,8 @@
 	  			<th>Type</th>
 	  			<th>Status</th>
 	  		</tr>
-	  		
-	  </tbody>
+	  		 </tbody>
+	  		 <tbody id="table content"></tbody>
 	  </table>
 	  
 	  

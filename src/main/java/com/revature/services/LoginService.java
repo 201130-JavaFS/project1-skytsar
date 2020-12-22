@@ -11,7 +11,7 @@ public class LoginService {
 	 * You may immediately delete this file from your project, you will not require it. 
 	 */
 	public boolean login(String username, String password) {
-		System.out.println("loginservice reached");
+		
 		//password=user.encrypt(password);
 		user= eDao.login(username, password);
 		if(user!=null) {

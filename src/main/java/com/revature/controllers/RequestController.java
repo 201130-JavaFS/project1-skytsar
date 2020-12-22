@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginDTO;
 import com.revature.models.Request;
@@ -19,6 +22,7 @@ import com.revature.services.RequestService;
 public class RequestController {
 	private ObjectMapper om = new ObjectMapper();
 	private RequestService rs = new RequestService();
+	private static Logger log = LogManager.getRootLogger();
 
 	public void addRequest(HttpServletRequest req, HttpServletResponse res) throws IOException{
 		if(req.getMethod().equals("POST")) {

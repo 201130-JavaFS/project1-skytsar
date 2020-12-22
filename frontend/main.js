@@ -5,6 +5,11 @@ const url = 'http://localhost:8080/project-1/';
 document.getElementById("loginbtn").addEventListener('click', loginFunc);
 document.getElementById("requestAdd").addEventListener('click', showreqform);
 document.getElementById("submitRequest").addEventListener('click', addRequest);
+document.getElementById("requestList").addEventListener('click', makeTable);
+
+var loggedUser="";
+var selectedRequest=0;
+var statusFilter=-1;
 
 async function loginFunc() {
   
@@ -24,24 +29,30 @@ async function loginFunc() {
     //Credentials:include will ensure that they cookie is captured, future fetch requests
     //will also require this value in order to send the cookie back. 
   });
-
+  
+	
   if(resp.status===200){
+  	console.log(resp);
+  	//loggedUser= await resp.json();
     document.getElementById('login-row').innerText="YOU HAVE LOGGED IN";  
     document.getElementById("useroptions").style.display = "block";
     
   }else{
     document.getElementById('login-row').innerText="Login failed! Reload the page of the computer will explode!"; 
-  }
+  		}
 
 }
 
 async function makeTable(){
-	
+	document.getElementById("request table").style.display = "block";
+	document.getElementById("table content").innerHTML="";
+	statusFilter=document.getElementById("filterID").value;
 	let response = await fetch(url+"getRequests", {credentials: 'include'});
 	if(response.status===200){
       console.log(response);
       let data = await response.json();
       for(let req of data){
+      	let row = document.createElement("tr");
 	  	let cell = document.createElement("button");
       	cell.innerHTML = req.id;
       	row.appendChild(cell);
@@ -57,22 +68,46 @@ async function makeTable(){
       	let cell4 = document.createElement("td");
       	cell4.innerHTML = req.resolveTime;
       	row.appendChild(cell4);
-
+      	
       	let cell5 = document.createElement("td");
-      	cell5.innerHTML = req.resolverID;
+      	cell5.innerHTML = req.authorID;
       	row.appendChild(cell5);
 
       	let cell6 = document.createElement("td");
-      	cell6.innerHTML = req.statusID;
+      	cell6.innerHTML = req.resolverID;
       	row.appendChild(cell6);
 
-      	
-        let cell7 = document.createElement("td");
-        cell7.innerHTML = req.typeID;
-        row.appendChild(cell7);
-      	
+      	let cell7 = document.createElement("td");
+      	if(req.statusID==1){
+      		cell7.innerHTML = "Pending";
+      	}
+      	else if(req.statusID==2){
+      		cell7.innerHTML = "Accepted";
+      	}
+      	else if(req.statusID==3){
+      		cell7.innerHTML = "Rejected";
+      	}
+      	row.appendChild(cell7);
 
-	  	document.getElementById("request table").appendChild(row);
+      	
+        let cell8 = document.createElement("td");
+        if(req.typeID==1){
+        	cell8.innerHTML = "LODGING";
+        }
+        else if(req.typeID==2){
+        	cell8.innerHTML = "TRAVEL";
+        }
+        else if(req.typeID==3){
+        	cell8.innerHTML = "FOOD";
+        }
+        else{
+        	cell8.innerHTML = "OTHER";
+        }
+        row.appendChild(cell8);
+      	
+		if(statusFilter==0 || statusFilter==req.statusID){
+	  	document.getElementById("table content").appendChild(row);
+	  	}
 	  }
 	}
 
