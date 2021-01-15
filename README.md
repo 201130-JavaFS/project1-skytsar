@@ -40,6 +40,8 @@ The back-end system shall use JDBC to connect to a Postgres database. The applic
 * Configure Postgress Sql settings
 * Run the project on a Tomcat 9 server
 * Open mainpage.html on your browser
+**Mainpage.html**
+![](./imgs/RevProject1Mainpage.png)
 
 **Features**
 * login
